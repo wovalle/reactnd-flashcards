@@ -1,15 +1,14 @@
 import { createStore, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
+import { composeWithDevTools } from 'remote-redux-devtools';
 
 import reducers from './reducers/';
 import * as api from './api';
 import * as schema from './normalizr.schema';
 
 const initialState = {
-  cards: {
-    1: { id: 1, text: 'hello store' }
-  }
+  decks: {}
 };
 
 const thunkWithExtras = thunk.withExtraArgument({ api, schema });
@@ -23,7 +22,7 @@ const configureStoreDev = (params) => {
   const store = createStore(
     reducers,
     initialState,
-    compose(
+    composeWithDevTools(
       applyMiddleware(...middlewares)
     )
   );

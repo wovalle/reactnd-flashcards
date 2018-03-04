@@ -1,13 +1,20 @@
 import React from 'react';
 import { Container, Header, Content, List, ListItem, Text, Body, View } from 'native-base';
+import { connect } from 'react-redux';
+
+import { getDecks } from '../actions/deck.actions';
 
 class Decks extends React.Component {
+  componentDidMount() {
+    this.props.getDecks();
+  }
+
   render() {
-    const DeckItems = [1, 2, 3, 4].map((i) => (
-      <ListItem style={{ height: 150 }} key={i}>
+    const DeckItems = this.props.decks.map(({ title, questions }) => (
+      <ListItem style={{ height: 150 }} key={title}>
         <Body style={{ alignItems: 'center' }}>
-          <Text>{i}</Text>
-          <Text note>{`Item #${i}`}</Text>
+          <Text>{title}</Text>
+          <Text note>{`${questions.length} card${questions.length !== 1 ? 's' : ''}`}</Text>
         </Body>
       </ListItem>
     ));
@@ -24,4 +31,8 @@ class Decks extends React.Component {
   }
 }
 
-export default Decks;
+const mapStateToProps = (state) => ({
+  decks: Object.values(state.decks),
+});
+
+export default connect(mapStateToProps, { getDecks })(Decks);
