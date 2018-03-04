@@ -2,6 +2,7 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 import { Platform } from 'react-native';
 
 import Decks from './Decks';
+import Deck from './Deck';
 import Home from '../containers/Home';
 import Quiz from './Quiz';
 import NewCard from './NewCard';
@@ -12,7 +13,7 @@ const TabComponent = TabNavigator(
     Decks: {
       screen: Decks,
       navigationOptions: {
-        tabBarLabel: 'Deck List',
+        tabBarLabel: 'Decks',
         tabBarIcon: ({ tintColor }) => (
           <Ionicons name="ios-bookmarks" size={30} color={tintColor} />
         )
@@ -30,7 +31,7 @@ const TabComponent = TabNavigator(
   },
   {
     navigationOptions: {
-      headerTitle: 'Deck List'
+      headerTitle: 'Decks'
     },
     tabBarOptions: {
       activeTintColor: Platform.OS === 'ios' ? 'purple' : 'white',
@@ -52,7 +53,13 @@ export default StackNavigator({
   Home: {
     screen: TabComponent
   },
-  Decks: {
-    screen: Decks
+  Deck: {
+    screen: Deck
+  },
+  Quiz: {
+    screen: Quiz
+  },
+  NewCard: {
+    screen: NewCard
   }
 });
