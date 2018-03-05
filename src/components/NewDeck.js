@@ -1,11 +1,41 @@
 import React from 'react';
 import { Container, Header, Content, Input, View, Item, Button, Text, H2 } from 'native-base';
+import { Keyboard, Alert } from 'react-native';
+import { connect } from 'react-redux';
 
+import { saveNewDeck } from '../actions/deck.actions';
 
 class NewDeck extends React.Component {
-  onPress = () => {
-    this.props.navigation.navigate('Deck', { deckId: 'klk' });
+  state = {
+    title: ''
   }
+
+  onPress = () => {
+    Keyboard.dismiss();
+    const title = this.state.title.trim();
+
+    if (!title) {
+      Alert.alert(
+        'Error',
+        'Invalid title',
+        [{ text: 'OK' }]
+      );
+    } else if (this.props.decks[title]) {
+      Alert.alert(
+        'Info',
+        `There is already one deck with the title ${title}`,
+        [{ text: 'OK' }]
+      );
+    } else {
+      Keyboard.dismiss();
+      this.props.saveNewDeck(title, this.props.navigation.navigate);
+    }
+  }
+
+  onChangeText = (title) => {
+    this.setState({ title });
+  }
+
   render() {
     return (
       <Container>
@@ -13,7 +43,7 @@ class NewDeck extends React.Component {
           <View>
             <H2>What is the title of your new deck?</H2>
             <Item style={{ paddingTop: 20, marginBottom: 20 }}>
-              <Input placeholder="Deck Title" />
+              <Input placeholder="Deck Title" onChangeText={this.onChangeText} />
             </Item>
             <Button style={{ alignSelf: 'center' }} onPress={this.onPress}>
               <Text>Submit</Text>
@@ -25,5 +55,8 @@ class NewDeck extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  decks: state.decks,
+});
 
-export default NewDeck;
+export default connect(mapStateToProps, { saveNewDeck })(NewDeck);

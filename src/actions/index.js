@@ -1,5 +1,6 @@
 export default {
   decks: {
-    get: 'decks.get'
+    getAll: 'decks.getAll',
+    save: 'decks.save'
   }
 }
