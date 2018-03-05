@@ -27,6 +27,6 @@ export const saveNewDeck = (title, navigate) => {
       deck
     });
 
-    navigate('Deck', { deckId: deck.title });
+    navigate('Deck', { deck });
   }
 }

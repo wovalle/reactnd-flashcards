@@ -9,15 +9,15 @@ class Decks extends React.Component {
     this.props.getDecks();
   }
 
-  onDeckClick = (title) => {
+  onDeckClick = (deck) => {
     return () => {
-      this.props.navigation.navigate('Deck', { deckId: title })
+      this.props.navigation.navigate('Deck', { deck })
     }
   }
 
   render() {
     const DeckItems = this.props.decks.map(({ title, questions }) => (
-      <ListItem style={{ height: 150 }} key={title} onPress={this.onDeckClick(title)}>
+      <ListItem style={{ height: 150 }} key={title} onPress={this.onDeckClick({ title, questions })}>
         <Body style={{ alignItems: 'center' }}>
           <Text>{title}</Text>
           <Text note>{`${questions.length} card${questions.length !== 1 ? 's' : ''}`}</Text>
