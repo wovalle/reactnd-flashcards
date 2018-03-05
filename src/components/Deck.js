@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Content, Text, H1, Button } from 'native-base';
+import { connect } from 'react-redux';
 
 class Deck extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -7,8 +8,8 @@ class Deck extends React.Component {
   });
 
   addCard = () => {
-    const { deckId } = this.props.navigation.state.params;
-    this.props.navigation.navigate('NewCard', { deckId });
+    const { deck } = this.props.navigation.state.params;
+    this.props.navigation.navigate('NewCard', { deck });
   }
 
   startQuiz = () => {
@@ -17,7 +18,7 @@ class Deck extends React.Component {
   }
 
   render() {
-    const { title, questions } = this.props.navigation.state.params.deck;
+    const { title, questions } = this.props.deck;
 
     return (
       <Container>
@@ -36,4 +37,10 @@ class Deck extends React.Component {
   }
 }
 
-export default Deck;
+const mapStateToProps = (state, props) => {
+  return {
+    deck: state.decks[props.navigation.state.params.deck.title],
+  }
+};
+
+export default connect(mapStateToProps, {})(Deck);

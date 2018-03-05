@@ -6,12 +6,22 @@ export default function decksReducer(state = {}, action) {
         ...state,
         ...action.decks,
       }
-    case actions.decks.save: {
+    case actions.decks.save:
       return {
         ...state,
         [action.deck.title]: action.deck
       }
-    }
+    case actions.decks.save_question:
+      return {
+        ...state,
+        [action.deckId]: {
+          ...state[action.deckId],
+          questions: [
+            ...state[action.deckId].questions,
+            { question: action.question, answer: action.answer }
+          ]
+        }
+      }
   }
   return state;
 }

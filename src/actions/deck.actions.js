@@ -1,4 +1,4 @@
-import { fetchDecks, saveDeck } from '../api';
+import { fetchDecks, fetchDeck, saveDeck } from '../api';
 import actions from './index';
 
 export const getDecks = () => {
@@ -19,7 +19,6 @@ export const getDecks = () => {
 export const saveNewDeck = (title, navigate) => {
   return async (dispatch) => {
     const deck = { title, questions: [] };
-    console.log(deck)
     saveDeck(deck);
 
     dispatch({
@@ -28,5 +27,22 @@ export const saveNewDeck = (title, navigate) => {
     });
 
     navigate('Deck', { deck });
+  }
+}
+
+export const saveQuestion = (deckId, question, answer, cb) => {
+  return async (dispatch, getState) => {
+    const deck = await fetchDeck(deckId);
+    deck.questions.push({ question, answer });
+    saveDeck(deck);
+
+    dispatch({
+      type: actions.decks.save_question,
+      deckId,
+      question,
+      answer
+    });
+
+    cb();
   }
 }
