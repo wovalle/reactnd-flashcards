@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Content, Text, H1, Button } from 'native-base';
 import { connect } from 'react-redux';
+import { Alert } from 'react-native';
 
 class Deck extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -14,6 +15,17 @@ class Deck extends React.Component {
 
   startQuiz = () => {
     const { deck } = this.props;
+
+    if (!deck.questions.length) {
+      Alert.alert(
+        'Error',
+        'This deck doesn\'t have any question, please add some.',
+        [{ text: 'OK' }]
+      );
+
+      return;
+    }
+
     this.props.navigation.navigate('Quiz', { deck });
   }
 
