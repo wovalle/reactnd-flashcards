@@ -8,13 +8,13 @@ class Deck extends React.Component {
   });
 
   addCard = () => {
-    const { deck } = this.props.navigation.state.params;
+    const { deck } = this.props;
     this.props.navigation.navigate('NewCard', { deck });
   }
 
   startQuiz = () => {
-    const { deckId } = this.props.navigation.state.params;
-    this.props.navigation.navigate('Quiz', { deckId });
+    const { deck } = this.props;
+    this.props.navigation.navigate('Quiz', { deck });
   }
 
   render() {

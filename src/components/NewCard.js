@@ -10,6 +10,7 @@ class NewCard extends React.Component {
     question: '',
     answer: ''
   }
+
   static navigationOptions = () => {
     return {
       title: 'Add Card'

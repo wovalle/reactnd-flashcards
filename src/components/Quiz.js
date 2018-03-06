@@ -4,22 +4,68 @@ import { StyleSheet } from 'react-native';
 import FlipCard from 'react-native-flip-card';
 
 class Quiz extends React.Component {
+  state = {
+    questionNumber: 0,
+    deck: { questions: [] },
+    correctQuestions: 0,
+    showAnswer: false,
+  }
+
+  static navigationOptions = () => {
+    return {
+      title: 'Quiz'
+    };
+  };
+
+  componentDidMount() {
+    this.setState({
+      deck: this.props.navigation.state.params.deck,
+    });
+  }
+
+  setAnswer(correct = false) {
+    return () => {
+      this.setState((state) => ({
+        questionNumber: state.questionNumber + 1,
+        correctQuestions: correct ? state.correctQuestions + 1 : state.correctQuestions,
+        showAnswer: false,
+      }), () => {
+        if (this.state.questionNumber >= this.state.deck.questions.length) {
+          this.props.navigation.replace('QuizSummary', { quiz: this.state })
+        }
+      });
+    }
+  }
+
+  toggleShowAnswer = () => {
+    this.setState((state) => ({
+      showAnswer: !state.showAnswer
+    }));
+  }
+
   render() {
+    const { deck, questionNumber } = this.state;
+    const question = deck.questions[questionNumber];
+
+    if (!question) {
+      return null;
+    }
+
     return (
       <Container>
         <Content contentContainerStyle={styles.container}>
           <View>
-            <Text>{`2 / 2`}</Text>
+            <Text>{`${this.state.questionNumber + 1} / ${this.state.deck.questions.length}`}</Text>
           </View>
           <View style={styles.question_container}>
-            <Text style={styles.question}>Does React Native works with Android?</Text>
+            <Text style={styles.question} onPress={this.toggleShowAnswer}>{this.state.showAnswer ? question.answer : question.question}</Text>
             <Text style={styles.answer}>Answer</Text>
           </View>
           <View style={styles.buttons_container}>
-            <Button style={[styles.button, styles.button__correct]}>
+            <Button style={[styles.button, styles.button__correct]} onPress={this.setAnswer(true)}>
               <Text>Correct</Text>
             </Button>
-            <Button style={[styles.button, styles.button__incorrect]}>
+            <Button style={[styles.button, styles.button__incorrect]} onPress={this.setAnswer(false)}>
               <Text>Incorrect</Text>
             </Button>
           </View>
@@ -32,7 +78,6 @@ class Quiz extends React.Component {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-
   },
   question_container: {
     paddingTop: 80,
@@ -47,7 +92,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   buttons_container: {
-    marginTop: 160,
+    marginTop: 100,
   },
   button: {
     alignSelf: 'center',

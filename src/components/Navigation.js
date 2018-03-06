@@ -5,6 +5,7 @@ import Decks from './Decks';
 import Deck from './Deck';
 import Home from '../containers/Home';
 import Quiz from './Quiz';
+import QuizSummary from './QuizSummary';
 import NewCard from './NewCard';
 import NewDeck from './NewDeck';
 
@@ -58,6 +59,9 @@ export default StackNavigator({
   },
   Quiz: {
     screen: Quiz
+  },
+  QuizSummary: {
+    screen: QuizSummary
   },
   NewCard: {
     screen: NewCard
