@@ -8,10 +8,13 @@ class QuizSummary extends React.Component {
   });
 
   render() {
+    const { quiz } = this.props.navigation.state.params;
+    const questionsQuantity = quiz.deck.questions.length;
+
     return (
       <Container>
         <Content contentContainerStyle={{ flex: 1, alignItems: 'center', paddingTop: 80 }}>
-          <H1>Summary</H1>
+          <H1>{`You got ${quiz.correctQuestions} out of ${questionsQuantity} questions!`}</H1>
         </Content>
       </Container>
     );
