@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   question: {
-    fontSize: 40
+    fontSize: 40,
+    textAlign: 'center',
   },
   answer: {
     marginTop: 20,
