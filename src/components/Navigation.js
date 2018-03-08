@@ -1,3 +1,5 @@
+import React from 'react';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { Platform } from 'react-native';
 
@@ -14,38 +16,19 @@ const TabComponent = TabNavigator(
     Decks: {
       screen: Decks,
       navigationOptions: {
-        tabBarLabel: 'Decks',
-        tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="ios-bookmarks" size={30} color={tintColor} />
-        )
+        tabBarLabel: 'Decks'
       }
     },
     NewDeck: {
       screen: NewDeck,
       navigationOptions: {
         tabBarLabel: 'New Deck',
-        tabBarIcon: ({ tintColor }) => (
-          <FontAwesome name="plus-square" size={30} color={tintColor} />
-        )
       }
     }
   },
   {
     navigationOptions: {
-      headerTitle: 'Decks'
-    },
-    tabBarOptions: {
-      activeTintColor: Platform.OS === 'ios' ? 'purple' : 'white',
-      style: {
-        height: 56,
-        shadowColor: 'rgba(0, 0, 0, 0.24)',
-        shadowOffset: {
-          width: 0,
-          height: 3
-        },
-        shadowRadius: 6,
-        shadowOpacity: 1
-      }
+      headerTitle: 'Mobile Flashcards'
     }
   }
 );
