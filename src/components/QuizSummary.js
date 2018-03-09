@@ -12,6 +12,11 @@ class QuizSummary extends React.Component {
     this.props.navigation.goBack();
   }
 
+  restart = () => {
+    const { quiz } = this.props.navigation.state.params;
+    this.props.navigation.replace('Quiz', { deck: quiz.deck });
+  }
+
   render() {
     const { quiz } = this.props.navigation.state.params;
     const questionsQuantity = quiz.deck.questions.length;
@@ -23,6 +28,9 @@ class QuizSummary extends React.Component {
           <View style={styles.buttons_container}>
             <Button>
               <Text onPress={this.goBack}>Back to deck</Text>
+            </Button>
+            <Button style={styles.button_restart}>
+              <Text onPress={this.restart}>Restart Quiz</Text>
             </Button>
           </View>
         </Content>
@@ -38,6 +46,9 @@ const styles = StyleSheet.create({
   },
   buttons_container: {
     marginTop: 140,
+  },
+  button_restart: {
+    marginTop: 20,
   }
 });
 
