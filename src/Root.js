@@ -1,9 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-
 import createStore from './createStore';
-
 import Navigation from './components/Navigation';
+import { setAppNotifications } from './notifications';
 
 const store = createStore();
 
@@ -18,6 +17,10 @@ class Root extends React.Component {
     });
 
     this.setState({ fontsLoaded: true });
+  }
+
+  componentDidMount() {
+    setAppNotifications();
   }
 
   render() {

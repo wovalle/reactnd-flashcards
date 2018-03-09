@@ -58,8 +58,8 @@ class Quiz extends React.Component {
             <Text>{`${this.state.questionNumber + 1} / ${this.state.deck.questions.length}`}</Text>
           </View>
           <View style={styles.question_container}>
-            <Text style={styles.question} onPress={this.toggleShowAnswer}>{this.state.showAnswer ? question.answer : question.question}</Text>
-            <Text style={styles.answer}>Answer</Text>
+            <Text style={styles.question}>{this.state.showAnswer ? question.answer : question.question}</Text>
+            <Text style={styles.answer} onPress={this.toggleShowAnswer}>Answer</Text>
           </View>
           <View style={styles.buttons_container}>
             <Button style={[styles.button, styles.button__correct]} onPress={this.setAnswer(true)}>
